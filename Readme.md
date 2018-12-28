@@ -1,3 +1,9 @@
-# Streamlit in Docker
+# Streamlit on Docker
 
-Run `docker-compose run streamlit run src/main.py`
+## Run Streamlit
+
+Run `docker-compose run streamlit streamlit run src/main.py`
+
+## Format
+
+Run `docker-compose run streamlit black src/`
