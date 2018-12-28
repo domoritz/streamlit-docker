@@ -1,0 +1,8 @@
+version: "3"
+services:
+  streamlit:
+    build: .
+    ports:
+      - "8501:8501"
+    volumes:
+      - "./src:/usr/src/app/src"
