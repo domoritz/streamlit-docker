@@ -2,6 +2,7 @@ version: "3"
 services:
   streamlit:
     build: .
+    command: "streamlit run src/main.py"
     ports:
       - "8501:8501"
     volumes:

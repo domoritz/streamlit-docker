@@ -2,9 +2,9 @@
 
 ## Run Streamlit
 
-Run `docker-compose run streamlit streamlit run src/main.py`
+Run `docker-compose up` to run `src/main.py` in streamlit.
 
-then open [localhost:8501](http://localhost:8501/) in your browser. 
+then open [localhost:8501/?name=main](http://localhost:8501/?name=main) in your browser. 
 
 ## Format
 
