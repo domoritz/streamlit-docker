@@ -12,12 +12,19 @@ chart = alt.Chart(cars).mark_point().encode(
     color="Origin",
 ).interactive()
 
-# https://github.com/altair-viz/altair/issues/1277
-# with alt.data_transformers.enable(to_values=False):
+def empty(data):
+    """ Altair data transformer that returns an empty array. """
+    return {
+        "values": []
+    }
 
-chart_dict = chart.to_dict()
-chart_dict.pop("datasets", None)
+# register the empty transformer
+alt.data_transformers.register("empty", empty)
 
-st.json(chart_dict)
+with alt.data_transformers.enable("empty"):
+    chart_dict = chart.to_dict()
+    chart_dict.pop("datasets", None)
 
-st.vega_lite_chart(cars, chart_dict)
+    st.json(chart_dict)
+
+    st.vega_lite_chart(cars, chart_dict)
