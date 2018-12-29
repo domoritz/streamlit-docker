@@ -1,34 +1,21 @@
+import altair as alt
 import streamlit as st
-import numpy as np
-import time
+from vega_datasets import data
 
-st.title("My first Streamlit report")
-st.write("Hello, world!")
+st.title("Streamlit with Altair")
 
-st.header("Time for some data")
-st.write("Here's a random dataset:")
+cars = data.cars()
 
-df = np.random.randn(500, 3)
-st.write(df)
+chart = alt.Chart(cars).mark_point().encode(
+    x="Horsepower",
+    y="Miles_per_Gallon",
+    color="Origin",
+).interactive()
 
-st.write("And here's what it looks like:")
-st.line_chart(df)
+with alt.data_transformers.enable(consolidate_datasets=False):
+    chart_dict = chart.to_dict()
+    chart_dict.pop("data", None)
 
-st.header("Showing progress")
+    st.write(chart_dict)
 
-import time
-
-st.write("Starting a long computation...")
-
-# Place some widgets on the page
-latest_iteration = st.empty()
-bar = st.progress(0)
-
-for i in range(100):
-    # Update the widgets in each iteration.
-    latest_iteration.text("Iteration %d" % i)
-    bar.progress(i + 1)
-    time.sleep(0.1)
-
-st.write("...and now we're done!")
-st.balloons()
+    st.vega_lite_chart(cars, chart_dict)
