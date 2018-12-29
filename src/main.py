@@ -12,10 +12,12 @@ chart = alt.Chart(cars).mark_point().encode(
     color="Origin",
 ).interactive()
 
-with alt.data_transformers.enable(consolidate_datasets=False):
-    chart_dict = chart.to_dict()
-    chart_dict.pop("data", None)
+# https://github.com/altair-viz/altair/issues/1277
+# with alt.data_transformers.enable(to_values=False):
 
-    st.json(chart_dict)
+chart_dict = chart.to_dict()
+chart_dict.pop("datasets", None)
 
-    st.vega_lite_chart(cars, chart_dict)
+st.json(chart_dict)
+
+st.vega_lite_chart(cars, chart_dict)
