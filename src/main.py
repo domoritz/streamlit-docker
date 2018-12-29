@@ -16,6 +16,6 @@ with alt.data_transformers.enable(consolidate_datasets=False):
     chart_dict = chart.to_dict()
     chart_dict.pop("data", None)
 
-    st.write(chart_dict)
+    st.json(chart_dict)
 
     st.vega_lite_chart(cars, chart_dict)
